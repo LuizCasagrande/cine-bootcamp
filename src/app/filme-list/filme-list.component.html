@@ -1,0 +1,46 @@
+<div class="card">
+  <div class="card-body">
+    <div class="card-title">Lista de Filmes</div>
+    <div class="row">
+      <div class="col-12">
+        <table class="table table-borderless">
+          <thead>
+          <tr>
+            <th class="text-center" scope="col">Título</th>
+            <th class="text-center" scope="col">Classificação</th>
+            <th class="text-center" scope="col">Data de Lançamento</th>
+            <th class="text-center" scope="col">Preço Bilhete</th>
+            <th class="text-center" scope="col">Formato</th>
+            <th class="text-center" scope="col">Status</th>
+          </tr>
+          </thead>
+          <tbody>
+          <ng-container *ngFor="let filme of filmeList$ | async">
+            <tr [class.zoom]="!filme.inativo" *ngIf="filme"
+                [class.custobaixo]="filme.precoBilhete <= 10"
+                [class.custoregular]="filme.precoBilhete > 10 && filme.precoBilhete <= 20"
+                [class.customedio]="filme.precoBilhete > 20 && filme.precoBilhete < 40"
+                [class.custoalto]="filme.precoBilhete >= 40"
+                [class.inativo]="filme.inativo"
+                [style.fontSize.px]="20"
+                (mouseenter)="titulo(filme)"
+                [title]="tooltip">
+              <td class="text-center">{{filme?.titulo}}</td>
+              <td class="text-center">{{filme?.classificacao}}</td>
+              <td class="text-center">{{filme?.dataLancamento | date: 'dd/MM/yyyy'}}</td>
+              <td class="text-center">{{filme.precoBilhete | currency: 'BRL'}}</td>
+              <td class="text-center">{{filme.formato | formato}}</td>
+              <td class="text-center">{{filme.inativo | inativo}}</td>
+            </tr>
+          </ng-container>
+          </tbody>
+          <tfoot style="font-size: 20px">
+            <td class="text-center">Total de filmes: {{size() | async}}</td>
+            <td colspan="2"></td>
+            <td class="text-center">Total preços: {{getTotal() | async | currency: 'BRL'}}</td>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+<div class="card" xmlns="">
+  <div class="card-body">
+    <div class=" h3 card-title">
+      Lista de Studios
+      <a class="badge badge-success" [routerLink]="'/studio-form'">Cadastrar</a>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th class="text-center" scope="col">#</th>
+            <th class="text-center" scope="col">Nome</th>
+            <th class="text-center" scope="col">País</th>
+            <th class="text-center" scope="col">Filmes</th>
+            <th class="text-center" scope="col">Ações</th>
+
+          </tr>
+          </thead>
+          <tbody>
+          <ng-container *ngFor="let studio of studio$ | async">
+            <tr [style.fontSize.px]="20">
+              <td class="text-center">{{studio?.id}}</td>
+              <td class="text-center">{{studio?.nome}}</td>
+              <td class="text-center">{{studio?.pais}}</td>
+              <td class="text-center">{{studio?.filmes}}</td>
+              <td class="text-center">
+                <button (click)="editar(studio)" class=" m-1 btn btn-primary">Editar</button>
+                <button (click)="excluir(studio)" class="btn btn-danger">Excluir</button>
+              </td>
+            </tr>
+          </ng-container>
+          </tbody>
+          <tfoot style="font-size: 20px">
+          <td>Total de studios: {{size() | async}}</td>
+          <td colspan="4"></td>
+          </tfoot>
+        </table>
+        <div *ngIf="studioParaEditar != null" class="col-12">
+          <app-studio-form [studio]="studioParaEditar"
+                         (onPersist)="atualizarRegistro()"
+                         [editar]="true"></app-studio-form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

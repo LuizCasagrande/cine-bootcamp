@@ -1,0 +1,48 @@
+<div class="card" xmlns="">
+  <div class="card-body">
+    <div class="card-title">
+      Lista de Atores
+      (<a [routerLink]="'/ator-form'">Cadastrar</a>)
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <table class="table table-borderless">
+          <thead>
+          <tr>
+            <th class="text-center" scope="col">#</th>
+            <th class="text-center" scope="col">Nome</th>
+            <th class="text-center" scope="col">Idade</th>
+            <th class="text-center" scope="col">Ações</th>
+
+          </tr>
+          </thead>
+          <tbody>
+          <ng-container *ngFor="let ator of atorList$ | async">
+            <tr [class.zoom]="ator" *ngIf="ator"
+                [style.fontSize.px]="20">
+<!--                (mouseenter)="titulo(filme)"-->
+<!--                [title]="tooltip">-->
+              <td class="text-center">{{ator?.id}}</td>
+              <td class="text-center">{{ator?.nome}}</td>
+              <td class="text-center">{{ator?.idade}}</td>
+              <td class="text-center">
+                <button (click)="editar(ator)">Editar</button>
+                <button (click)="excluir(ator)">Excluir</button>
+              </td>
+            </tr>
+          </ng-container>
+          </tbody>
+          <tfoot style="font-size: 20px">
+          <td>Total de filmes: {{size() | async}}</td>
+          </tfoot>
+        </table>
+        <div *ngIf="atorParaEditar != null" class="col-12">
+          <app-ator-form [ator]="atorParaEditar"
+                         (onPersist)="atualizarRegistro()"
+                         [editar]="true"></app-ator-form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

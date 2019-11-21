@@ -1,0 +1,36 @@
+::ng-deep .table {
+  color: black;
+  font-size: .8em;
+  & th {
+    font-size: 20px;
+  }
+}
+
+.custobaixo {
+  background-color: lightgrey;
+}
+
+.custoregular {
+  background-color: darkgrey;
+}
+
+.customedio {
+  background-color: grey;
+}
+
+.custoalto {
+  background-color: dimgray;
+}
+
+.inativo {
+  color: dimgray !important;
+  background-color: white !important;
+}
+
+.zoom {
+  transform: scale(1);
+  &:hover {
+    transform: scale(1.05);
+  }
+  transition: 200ms;
+}
